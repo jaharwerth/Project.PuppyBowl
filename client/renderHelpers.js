@@ -34,7 +34,6 @@ export const renderAllPlayers = (playerList) => {
   // we want to grab those "See details" buttons on each player
   // and attach a click handler to each one
   let detailButtons = [...document.getElementsByClassName("detail-button")];
-  console.log(detailButtons);
   for (let i = 0; i < detailButtons.length; i++) {
     const button = detailButtons[i];
     button.addEventListener("click", async () => {
@@ -65,8 +64,14 @@ export const renderSinglePlayer = (playerObj) => {
       <button id="see-all">Back to all players</button>
     </div>
   `;
-
   playerContainer.innerHTML = pupHTML;
+    let seeAllButton = document.getElementById('see-all');
+    seeAllButton.addEventListener('click', async () => {
+      const players = await fetchAllPlayers()
+      renderAllPlayers(players)
+    })
+
+
 };
 
 export const renderNewPlayerForm = () => {
