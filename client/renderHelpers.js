@@ -89,17 +89,12 @@ export const renderNewPlayerForm = () => {
   let form = document.querySelector("#new-player-form > form");
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    let newPlayerName = event.target.name.value;
-    let newPlayerBreed = event.target.breed.value;
-
-    let newAnimal = {
-      name: newPlayerName,
-      breed: newPlayerBreed
+    let playerData = {
+      name: form.elements.name.value,
+      breed: form.elements.breed.value
     }
-    await addNewPlayer(newAnimal);
-    const repsonse = await fetchAllPlayers();
-    renderAllPlayers(response);
-    event.target.name.value = "";
-    event.target.breed.value = "";
+    console.log(playerData, "this is playerData!")
+
+    addNewPlayer(playerData)
   });
 };

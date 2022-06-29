@@ -5,7 +5,7 @@ const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
 
 export const fetchAllPlayers = async () => {
   try {
-    const response = await fetch(`${APIURL}/players`);
+    const response = await fetch(`${APIURL}players`);
     const result = await response.json();
     if (result.error) throw result.error;
     return result.data.players;
@@ -16,24 +16,31 @@ export const fetchAllPlayers = async () => {
 
 export const fetchSinglePlayer = async (playerId) => {
   try {
-    const response = await fetch(`${APIURL}/players/${playerId}`);
+    const response = await fetch(`${APIURL}players/${playerId}`);
     const result = await response.json();
     if (result.error) throw result.error;
-      return result.data.player;
-    } catch (err) {
+    return result.data.player;
+  } catch (err) {
     console.error("Uh oh, trouble fetching players!", err);
   }
 };
 
 export const addNewPlayer = async (playerObj) => {
-  // try {
-  //   const response = await fetch(`${APIURL}/players/`);
-  //   const result = await response.json();
-  //   if (result.error) throw result.error;
-  //     return result.data.player;
-  //   } catch (err) {
-  //   console.error("Uh oh, trouble fetching players!", err);
-  // }
+  try {
+    const response = await fetch(`${APIURL}players/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(playerObj)
+    },
+    );
+    const result = await response.json();
+    if (result.error) throw result.error;
+    return result.data.player;
+  } catch (err) {
+    console.error("Uh oh, trouble fetching players!", err);
+  }
 };
 
-export const removePlayer = async (playerId) => {};
+export const removePlayer = async (playerId) => { };
